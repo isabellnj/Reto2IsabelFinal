@@ -7,7 +7,7 @@ public class OrderProductDTO {
     public Long orderId;
     public Long productId;
     private int quantity;
-    private @Id @GeneratedValue Long id;
+    private Long id;
 
 
 

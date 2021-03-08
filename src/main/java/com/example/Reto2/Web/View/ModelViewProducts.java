@@ -12,12 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-
-
-
 @Controller
 public class ModelViewProducts {
-
 
     private final ProductService productService;
 
@@ -25,16 +21,16 @@ public class ModelViewProducts {
 
         this.productService = productService;
     }
-    
+
     @GetMapping("/productoshtml")
-    public ModelAndView products(){
-        ModelAndView modelo=new ModelAndView("listProducts");
-        OrderProductFull order = OrdersController.orderById( 1L);
+    public ModelAndView products() {
+        ModelAndView modelo = new ModelAndView("listProducts");
+        OrderProductFull order = OrdersController.orderById(1L);
         ArrayList<Long> ids = new ArrayList<Long>();
-        
-        for (final ProductCantidad producto: order.getProducts()){
+
+        for (final ProductCantidad producto : order.getProducts()) {
             ids.add(producto.getProduct().getId());
-            
+
         }
 
         modelo.addObject("products", productService.getAll());
@@ -42,9 +38,5 @@ public class ModelViewProducts {
         modelo.addObject("ids", ids);
         return modelo;
     }
-
-   
-    
-
 
 }

@@ -30,5 +30,11 @@ public class OrderProductController {
         return orderProductService.getAll();
     }
 
+    @GetMapping("/{id}")
+    public List<OrderProductDTO> Get(@PathVariable("id") final Long id) {
+
+        return orderProductService.findByOrderId(id);
+    }
+
 
 }

@@ -31,14 +31,6 @@ public interface OrderProductRepository extends JpaRepository<OrderProduct, Long
 
 
 
-    // @Query(value =  "SELECT *" + " FROM  OrderProduct op INNER JOIN Product p on p.id=op.productId " + " WHERE op.orderId= :id", nativeQuery = true)
-    // List<OrderProduct> findByProductId(
-
-    //         @Param("id") Long id);
-    // JdbcTemplate.query("SELECT *" + " FROM  OrderProduct op INNER JOIN (SELECT p FROM Product p) on p.id=op.productId " + " WHERE op.orderId= :id",)
-    // List<OrderProduct> findByProductId(
-
-    //     @Param("id") Long id);
-
+  
 
 }

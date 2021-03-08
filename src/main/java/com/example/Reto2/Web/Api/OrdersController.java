@@ -78,7 +78,7 @@ public class OrdersController {
 
         ArrayList<ProductCantidad> products = new ArrayList<ProductCantidad>();
         for (OrderProductDTO orderProductDTO : orderProductsDTO) {
-            ProductDTO productDTO = productService.getByProductid(orderProductDTO.getProductId()).get(0);
+            ProductDTO productDTO = productService.findById(orderProductDTO.getProductId()).get(0);
             ProductCantidad productCantidad = new ProductCantidad(productDTO.toProduct(),
                     orderProductDTO.getQuantity());
             products.add(productCantidad);

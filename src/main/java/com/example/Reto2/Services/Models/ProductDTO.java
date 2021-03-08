@@ -11,7 +11,7 @@ public class ProductDTO {
     public ProductDTO(){}
 
     private static int count=0;
-    private @Id @GeneratedValue Long id;
+    private  Long id;
     private String Name; 
     private int Precio; 
     private String Image;
