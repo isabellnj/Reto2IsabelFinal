@@ -53,7 +53,7 @@ public class OrdersController {
     }
 
     // saca la lista de todos
-    @GetMapping("/order")
+    @GetMapping
     public List<OrderDTO> Get() {
 
         return orderService.getAll();
@@ -62,6 +62,7 @@ public class OrdersController {
     // saca order por id, lo que he ido haciendo es varias consultas por id y ir
     // creando clases de lo que necesitaba sacar, ya que
     // lo intente por inner join y no me salia.
+    
     @GetMapping("/{id}")
     public static OrderProductFull orderById(@PathVariable("id") final Long id) {
         List<OrderDTO> orders = orderService.findById(id);
@@ -69,7 +70,9 @@ public class OrdersController {
 
         if (!orders.isEmpty()) {
             orderDto = orders.get(0);
-        } 
+        }else{
+            return null;
+        }
 
         List<OrderProductDTO> orderProductsDTO = orderProductService.findByOrderId(id);
 
@@ -84,30 +87,28 @@ public class OrdersController {
         return new OrderProductFull(orderDto.toOrder(), products);
     }
 
-    // - Permite editar un pedido añadiendo o eliminando productos en ese pedido, si la cantidad es 0 hago otra consulta y
-    //borro el producto del pedido
+    // - Permite editar un pedido añadiendo o eliminando productos en ese pedido, si
+    // la cantidad es 0 hago otra consulta y
+    // borro el producto del pedido
     @PutMapping("/{id}")
     public void Update(@RequestBody ProductEdit product, @PathVariable("id") Long id) {
         List<OrderDTO> orders = orderService.findById(id);
-        if (!orders.isEmpty()){
-       
+        if (!orders.isEmpty()) {
+
             orderProductService.deleteByOrderProduct(id, product.getId());
             if (product.getCantidad() > 0) {
                 orderProductService.add(new OrderProductDTO(id, product.getId(), product.getCantidad()));
             }
 
-        }else{
+        } else {
             throw new ElementNotFound();
         }
-        
-     
 
     }
 
     @ResponseStatus(value = HttpStatus.NOT_FOUND, reason = "id no existe")
-    public static class ElementNotFound extends RuntimeException{
- 
+    public static class ElementNotFound extends RuntimeException {
+
     }
-   
 
 }
